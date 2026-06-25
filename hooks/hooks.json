@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/no-slop.py\"",
+            "timeout": 15,
+            "statusMessage": "Checking draft for filler..."
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '%s' 'Firm Research is active. Standard: every load-bearing claim must trace to a primary source with a Source line; pull exact figures, not estimates; run red-team-review before a finding ships.'"
+          }
+        ]
+      }
+    ]
+  }
+}

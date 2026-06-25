@@ -1,0 +1,59 @@
+{
+  "name": "firm-research",
+  "displayName": "Firm Research",
+  "version": "0.2.0",
+  "description": "Primary-source research and diligence workflows. Verify disclosures against the record, reconstruct real economics from free public data, and map corporate relationships. Free out of the box; optional keys unlock premium coverage.",
+  "author": {
+    "name": "Ryan C. Crowley"
+  },
+  "keywords": [
+    "equity-research",
+    "diligence",
+    "primary-source",
+    "edgar",
+    "corporate-registry",
+    "forensics"
+  ],
+  "defaultEnabled": true,
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json",
+  "userConfig": {
+    "sec_user_agent": {
+      "type": "string",
+      "title": "SEC EDGAR User-Agent",
+      "description": "Required by the SEC fair-access policy on every data.sec.gov request. Format: 'Name email@domain'.",
+      "sensitive": false,
+      "required": false,
+      "default": "Firm Research research@firm.example"
+    },
+    "opencorporates_api_key": {
+      "type": "string",
+      "title": "OpenCorporates API key (optional)",
+      "description": "OPTIONAL PLUG-IN SLOT. Leave blank and registry-graph runs on free sources only (SEC, US state Secretary of State portals, UK Companies House, ICIJ Offshore Leaks). Add a key to enable cross-jurisdiction officer and entity resolution at scale.",
+      "sensitive": true,
+      "required": false
+    },
+    "trade_data_api_key": {
+      "type": "string",
+      "title": "Trade-data / bill-of-lading API key (optional)",
+      "description": "OPTIONAL PLUG-IN SLOT. Provider-agnostic (ImportGenius, Panjiva, Tradesparq, Tradeindata). Leave blank and customs-reconstruct falls back to free Census USA Trade Online aggregates. Add a key for shipment-level bill-of-lading records.",
+      "sensitive": true,
+      "required": false
+    },
+    "trade_data_provider": {
+      "type": "string",
+      "title": "Trade-data provider name (optional)",
+      "description": "OPTIONAL. Names the vendor that trade_data_api_key belongs to, so customs-reconstruct calls the right endpoint.",
+      "sensitive": false,
+      "required": false
+    },
+    "firm_research_db_url": {
+      "type": "string",
+      "title": "Internal research database URL (optional)",
+      "description": "OPTIONAL PLUG-IN SLOT. Point at an in-house data service to let skills reconcile findings against the Firm's own records.",
+      "sensitive": false,
+      "required": false
+    }
+  }
+}

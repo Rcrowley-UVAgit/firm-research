@@ -1,0 +1,17 @@
+{
+  "name": "firm-research-marketplace",
+  "owner": {
+    "name": "Ryan C. Crowley"
+  },
+  "metadata": {
+    "description": "Distribution point for the Firm Research plugin.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "firm-research",
+      "source": "./",
+      "description": "Primary-source research and diligence workflows for the Firm. Free public data out of the box, with labeled slots for premium feeds."
+    }
+  ]
+}
