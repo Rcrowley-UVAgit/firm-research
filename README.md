@@ -14,7 +14,7 @@ person, an entity.
 ## Install
 
 ```
-/plugin marketplace add /path/to/firm-research
+/plugin marketplace add Rcrowley-UVAgit/firm-research
 /plugin install firm-research@firm-research-marketplace
 ```
 
