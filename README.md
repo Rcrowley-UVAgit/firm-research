@@ -1,15 +1,16 @@
 # Firm Research
 
-A Claude Code plugin that brings primary-source research and diligence in house.
-It turns recurring research bottlenecks into repeatable workflows: verify a
-disclosure against the record, recover what a page no longer shows, reconstruct
-real end-market activity from free public data, and map the entities and people
-behind a company. Every workflow is direction-neutral; it reports what the
-record shows.
+A Claude Code plugin that brings primary-source research and diligence in house,
+as an orchestrated multi-agent pipeline. A conductor runs specialized subagents
+in sequence over free public data: scope the target, capture the record, rebuild
+the real numbers, resolve who is behind what, verify every load-bearing claim,
+red-team the finding, and write it up. Every workflow is direction-neutral; it
+reports what the record shows.
 
 The plugin is general-purpose by construction. Nothing is hardcoded to any
-company. Point any skill at whatever you are looking at: a ticker, a URL, a
-person, an entity.
+company. Point it at whatever you are looking at: a ticker, a URL, a person, an
+entity. Run the whole pipeline with `diligence-pipeline`, or call any single
+skill on its own.
 
 ## Install
 
@@ -21,6 +22,15 @@ person, an entity.
 Or add the directory as a local marketplace and enable it from `/plugin`.
 
 ## What is in it
+
+### The pipeline (orchestration)
+
+- **diligence-pipeline**: the conductor. Runs the stage agents in sequence
+  (scout, capture, reconstruct, resolve, claim-check, red-team-review, report),
+  carries a structured handoff between stages, fans claim-check out one subagent
+  per claim, and stops early if the target has no primary surface or red-team
+  returns hold. Run it for a full work-up; the skills below are also callable on
+  their own.
 
 ### Skills (run on free public data)
 
@@ -57,12 +67,22 @@ Or add the directory as a local marketplace and enable it from `/plugin`.
 - **report-builder**: assemble verified findings into the Firm's house format,
   with a Source line on every exhibit and a no-filler finish.
 
-### Agents
+### Agents (the pipeline stages)
 
+- **scout**: scope a target into a research plan: the checkable questions, the
+  entities and tickers in scope, and which primary source answers each.
+- **capture**: pull the primary record and what changed: filing diffs, recovered
+  page source, background traffic, Wayback history.
+- **reconstruct**: rebuild the independent numbers from public data (demand,
+  trade, federal awards) and set them against the reported figures.
+- **resolve**: map the entities and people behind a company across registries;
+  resolve nominally independent parties by shared officer or address.
 - **claim-check**: test one specific claim against the primary record; returns
   confirmed, broken, or unresolved, with citations.
 - **red-team-review**: adversarially stress-test a finding before it ships: is
   it new, is it right, is it sourced, where is it weakest.
+- **report**: synthesize the confirmed, checked findings into the Firm's house
+  format, with a Source line on every exhibit.
 
 ### Hooks
 
@@ -87,8 +107,15 @@ policy requires it on every `data.sec.gov` request.
 
 ## Design notes
 
-The skills are organized as one pipeline: capture what was said, capture what a
-page or filing says now and said before, reconstruct the real number from an
-independent public source, and resolve who is behind what. The agents add the
-two cross-cutting moves: check a single claim, and stress-test a finding before
-it is relied on. Source attribution is mandatory throughout.
+The plugin is a pipeline of agents, not a pile of tools. `diligence-pipeline`
+is the conductor: it runs the stage agents in sequence and carries a structured
+handoff between them, so each agent works in its own context and passes forward
+only what the next stage needs. scout plans, capture pulls the record,
+reconstruct rebuilds the real number, and resolve maps who is behind what; these
+three middle stages are independent once scout has routed the questions, so the
+conductor runs them concurrently. claim-check then fans out, one subagent per
+load-bearing claim, and red-team-review attacks the assembled finding before
+report writes it up. The conductor stops early when a target has no primary
+surface or when red-team returns hold. The skills are the tools the agents
+wield, and any one is still callable on its own. Source attribution is mandatory
+throughout: a number that loses its source is dropped at the handoff.

@@ -1,8 +1,8 @@
 {
   "name": "firm-research",
   "displayName": "Firm Research",
-  "version": "0.2.0",
-  "description": "Primary-source research and diligence workflows. Verify disclosures against the record, reconstruct real economics from free public data, and map corporate relationships. Free out of the box; optional keys unlock premium coverage.",
+  "version": "0.3.0",
+  "description": "Primary-source research and diligence as an orchestrated multi-agent pipeline. A conductor runs specialized subagents in sequence (scout, capture, reconstruct, resolve, claim-check, red-team, report) over free public data to verify disclosures, rebuild real economics, and map corporate relationships. Free out of the box; optional keys unlock premium coverage.",
   "author": {
     "name": "Ryan C. Crowley"
   },
